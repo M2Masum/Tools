@@ -1,0 +1,493 @@
+<style>
+/* General styles for the layout */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-top: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Flex container for inline layout */
+div[style*="flex-wrap"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+        .iframe-container {
+            resize: both;
+            overflow: auto;
+            border: 2px solid #ccc;
+            display: inline-block;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        #size-display {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+
+</style>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+
+    <!-- Form ID and Checkbox -->
+    <div style="flex: 1; min-width: 300px;">
+        <label for="formId">Form ID:</label>
+        <input type="text" id="formId" name="formId" style="width: 100%;">
+
+        <div style="margin-top: 10px;">
+            <label>
+                <input type="checkbox" id="useSeparateHtmlName"> Use a different HTML form name
+            </label>
+        </div>
+
+        <div id="htmlFormNameContainer" style="margin-top: 10px; display: none;">
+            <label for="formName">HTML Form Name:</label>
+            <input type="text" id="formName" name="formName" style="width: 100%;">
+        </div>
+    </div>
+
+    <!-- Pre-field Links Section -->
+    <div style="flex: 1; min-width: 300px;">
+        <div id="pre-field-links-container">
+            <label for="pre-field-link-1">Google Form Pre-field link:</label>
+            <input type="text" id="pre-field-link-1" name="pre-field-link" placeholder="Enter your form Pre-field link" style="width: 100%;">
+        </div>
+        <button type="button" id="add-pre-field-link" style="margin-top: 10px;">Add More Pre-field Links</button>
+    </div>
+
+    <!-- Redirect and Countdown -->
+    <div style="flex: 1; min-width: 300px;">
+        <div>
+            <label>
+                <input type="checkbox" id="enableRedirect"> Redirect or Reload after Countdown
+            </label>
+        </div>
+
+        <div id="redirectOptionsContainer" style="margin-top: 10px; display: none;">
+            <label for="countdown">Countdown (seconds):</label>
+            <input type="number" id="countdown" name="countdown" value="5" min="1" style="width: 100%;">
+
+            <label for="redirectUrl" style="margin-top: 10px;">Redirect URL:</label>
+            <input type="text" id="redirectUrl" name="redirectUrl" placeholder="Leave blank to reload current page" style="width: 100%;">
+        </div>
+    </div>
+
+<!-- Updated HTML -->
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start;">
+
+    <!-- Generated HTML Section -->
+    <div style="flex: 1;">
+        <label for="generatedHtml">HTML</label>
+        <div style="position: relative; display: flex; align-items: flex-start;">
+            <textarea id="generatedHtml" name="generatedHtml" rows="15" style="flex: 1;"></textarea>
+            <button id="copyHtmlButton" type="button" style="position: absolute; right: 10px; top: 10px; background: transparent; border: none; font-size: 20px; cursor: pointer;">
+                <span id="copyHtmlIcon">📋</span>
+            </button>
+            <span id="copiedHtmlNotification" style="position: absolute; right: 50px; top: 10px; color: green; display: none; font-size: 12px;">
+                Copied!
+            </span>
+        </div>
+    </div>
+
+    <!-- Custom CSS Section -->
+    <div style="flex: 1;">
+        <label for="cssCode">CSS</label>
+        <div style="position: relative; display: flex; align-items: flex-start;">
+            <textarea id="cssCode" name="cssCode" rows="15" style="flex: 1;"><style>
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Form container */
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title or form heading */
+form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Label Styling */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Input Styling */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+/* Button Styling */
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Error or Validation Message (if needed) */
+input:invalid {
+    border-color: #dc3545;
+}
+
+input:valid {
+    border-color: #28a745;
+}
+</style></textarea>
+            <button id="copyCssButton" type="button" style="position: absolute; right: 10px; top: 10px; background: transparent; border: none; font-size: 20px; cursor: pointer;">
+                <span id="copyCssIcon">📋</span>
+            </button>
+            <span id="copiedCssNotification" style="position: absolute; right: 50px; top: 10px; color: green; display: none; font-size: 12px;">
+                Copied!
+            </span>
+        </div>
+    </div>
+  
+    <!-- Generated Codes Section -->
+    <div style="flex: 1;">
+        <label for="generatedCode">JavaScript</label>
+        <div style="position: relative; display: flex; align-items: flex-start;">
+            <textarea id="generatedCode" name="generatedCode" rows="15" style="flex: 1;"></textarea>
+            <button id="copyCodeButton" type="button" style="position: absolute; right: 10px; top: 10px; background: transparent; border: none; font-size: 20px; cursor: pointer;">
+                <span id="copyIcon">📋</span>
+            </button>
+            <span id="copiedNotification" style="position: absolute; right: 50px; top: 10px; color: green; display: none; font-size: 12px;">
+                Copied!
+            </span>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Preview Section -->
+<div style="margin-top: 0px;">
+    <div id="size-display">HTML Preview: Width: 379px, Height: 397px</div>
+    <div class="iframe-container" id="iframe-container" style="width: 379px; height: 397px;">
+        <iframe id="htmlPreview" name="htmlPreview"></iframe>
+    </div>
+</div>
+<script>
+document.getElementById('formId').addEventListener('input', generateCodes);
+document.getElementById('formName').addEventListener('input', generateCodes);
+document.getElementById('useSeparateHtmlName').addEventListener('change', toggleHtmlFormNameInput);
+document.getElementById('add-pre-field-link').addEventListener('click', addPreFieldLink);
+document.getElementById('pre-field-links-container').addEventListener('input', generateCodes);
+document.getElementById('enableRedirect').addEventListener('change', toggleRedirectOptions);
+document.getElementById('redirectOptionsContainer').addEventListener('input', generateCodes);  
+document.getElementById('copyCodeButton').addEventListener('click', copyGeneratedCode);
+document.getElementById('copyHtmlButton').addEventListener('click', copyGeneratedHtml);
+document.getElementById('copyCssButton').addEventListener('click', copyCssCode);
+document.getElementById('cssCode').addEventListener('input', applyCustomCss);
+document.getElementById('generatedHtml').addEventListener('input', updatePreview);
+
+// Counter for additional pre-field links
+let preFieldLinkCount = 1;
+
+// Toggle HTML Form Name Input field visibility
+function toggleHtmlFormNameInput() {
+    const htmlFormNameContainer = document.getElementById('htmlFormNameContainer');
+    const isChecked = document.getElementById('useSeparateHtmlName').checked;
+    htmlFormNameContainer.style.display = isChecked ? 'block' : 'none';
+    generateCodes();
+}
+
+// Toggle Redirect Options
+function toggleRedirectOptions() {
+    const redirectOptionsContainer = document.getElementById('redirectOptionsContainer');
+    const isChecked = document.getElementById('enableRedirect').checked;
+    redirectOptionsContainer.style.display = isChecked ? 'block' : 'none';
+    generateCodes();
+}
+
+// Add more pre-field links
+function addPreFieldLink() {
+    preFieldLinkCount++;
+    const container = document.getElementById('pre-field-links-container');
+    const newInput = document.createElement('div');
+    newInput.innerHTML = `
+        <label for="pre-field-link-${preFieldLinkCount}">Pre-field link:</label>
+        <input type="text" id="pre-field-link-${preFieldLinkCount}" name="pre-field-link">
+    `;
+    container.appendChild(newInput);
+}
+
+// Generate codes dynamically
+function generateCodes() {
+    const formIdValue = document.getElementById('formId').value;
+    const useSeparateHtmlName = document.getElementById('useSeparateHtmlName').checked;
+    const formNameValue = useSeparateHtmlName ? document.getElementById('formName').value : formIdValue;
+    const preFieldLinks = document.querySelectorAll('input[name="pre-field-link"]');
+    const enableRedirect = document.getElementById('enableRedirect').checked;
+    const countdown = document.getElementById('countdown').value;
+    const redirectUrl = document.getElementById('redirectUrl').value;
+
+
+    if (preFieldLinks.length === 0) {
+        document.getElementById('generatedCode').value = "// Please provide at least one Pre-field link.";
+        document.getElementById('generatedHtml').value = "<!-- Please provide at least one Pre-field link. -->";
+        return;
+    }
+
+    let variableSet = new Set();
+    let variableDeclarations = '';
+    let formSpecificDataArray = [];
+    let htmlInputs = '';
+  
+    // Function to capitalize the first letter of each word and add spaces
+    function capitalizeFieldName(fieldName) {
+        return fieldName.replace(/[_]/g, ' ')  // Replace underscores or hyphens with spaces
+                        .replace(/\b\w/g, char => char.toUpperCase());  // Capitalize first letter of each word
+    }
+
+    preFieldLinks.forEach((linkInput) => {
+        const preFieldLink = linkInput.value;
+        if (preFieldLink) {
+            const urlParts = new URL(preFieldLink);
+            const formUrl = preFieldLink.split('/viewform')[0] + '/formResponse';
+            const params = new URLSearchParams(urlParts.search);
+
+            let entryParams = [];
+            for (let [key, value] of params.entries()) {
+                if (key.startsWith('entry.')) {
+                    const fieldName = value;
+                    if (!variableSet.has(fieldName)) {
+                        variableSet.add(fieldName);
+                        const capitalizedFieldName = capitalizeFieldName(fieldName); // Capitalize and add spaces
+                        variableDeclarations += `    var ${fieldName} = document.getElementsByName('${fieldName}')[0].value;\n`;
+                        htmlInputs += `<label for="${fieldName}">${capitalizedFieldName}:</label>\n<input type="text" name="${fieldName}" id="${fieldName}"><br>\n`; // Use formatted field name
+                    }
+                    entryParams.push(`${key}=\${encodeURIComponent(${fieldName})}`);
+                }
+            }
+
+            formSpecificDataArray.push(`
+    { 
+        formUrl: "${formUrl}",
+        formData: \`${entryParams.join('&')}\`
+    }`);
+        }
+    });
+
+    // JavaScript Code
+    const redirectCode = enableRedirect
+        ? `
+    setTimeout(() => {
+        if ("${redirectUrl}") {
+            window.location.href = "${redirectUrl}";
+        } else {
+            window.location.reload();
+        }
+    }, ${countdown} * 1000);
+        `
+        : '';
+  
+    const generatedCode = `
+document.getElementById("${formIdValue}").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+${variableDeclarations}
+
+    var formSpecificData = [${formSpecificDataArray.join(',')}];
+
+    // Submit data
+    formSpecificData.forEach(function (formDataItem) {
+        fetch(formDataItem.formUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formDataItem.formData,
+        }).then(response => {
+            console.log("Form submitted successfully.");
+        }).catch(error => {
+            console.error("Error submitting form:", error);
+        });
+    });
+
+${redirectCode}
+});
+`;
+
+    document.getElementById('generatedCode').value = generatedCode.trim();
+
+    // Generate HTML form code
+    const generatedHtml = `
+<form id="${formIdValue}" name="${formNameValue}">
+    ${htmlInputs}
+    <button type="submit">Submit</button>
+</form>
+    `;
+
+    document.getElementById('generatedHtml').value = generatedHtml.trim();
+document.getElementById('cssCode').addEventListener('input', applyCustomCss);
+
+    // Update preview
+    updatePreview(generatedHtml);
+      applyCustomCss();
+}
+
+// Update the preview iframe with the latest HTML and CSS
+function updatePreview() {
+    const htmlContent = document.getElementById('generatedHtml').value;
+    const cssContent = document.getElementById('cssCode').value;
+    const iframe = document.getElementById('htmlPreview');
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    iframeDoc.open();
+    iframeDoc.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>${cssContent}</style>
+        </head>
+        <body>
+            ${htmlContent}
+        </body>
+        </html>
+    `);
+    iframeDoc.close();
+          // Apply the current CSS
+        applyCustomCss();
+}
+
+  // Ensure the preview updates in real-time whenever the page loads
+window.addEventListener('DOMContentLoaded', () => {
+    updatePreview();
+});
+  
+// Apply custom CSS to the preview
+function applyCustomCss() {
+    const customCss = document.getElementById('cssCode').value;
+    const iframe = document.getElementById('htmlPreview');
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+    const style = iframeDoc.createElement('style');
+    style.textContent = customCss;
+    iframeDoc.head.appendChild(style);
+}
+
+// Copy generated JavaScript code
+function copyGeneratedCode() {
+    const generatedCode = document.getElementById('generatedCode');
+    generatedCode.select();
+    document.execCommand('copy');
+    showCopiedNotification('copiedNotification');
+}
+
+// Copy generated HTML code
+function copyGeneratedHtml() {
+    const generatedHtml = document.getElementById('generatedHtml');
+    generatedHtml.select();
+    document.execCommand('copy');
+    showCopiedNotification('copiedHtmlNotification');
+}
+
+// Copy generated HTML code
+function copyCssCode() {
+    const cssCode = document.getElementById('cssCode');
+    cssCode.select();
+    document.execCommand('copy');
+    showCopiedNotification('copiedCssNotification');
+}
+
+
+// Show copied notification
+function showCopiedNotification(notificationId) {
+    const notification = document.getElementById(notificationId);
+    notification.style.display = 'inline-block';
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 1500);
+}
+</script>
+    <script>
+        const container = document.getElementById('iframe-container');
+        const sizeDisplay = document.getElementById('size-display');
+
+        function updateSizeDisplay() {
+            const width = container.offsetWidth;
+            const height = container.offsetHeight;
+            sizeDisplay.textContent = `Width: ${width}px, Height: ${height}px`;
+        }
+
+        // Update size on resize
+        new ResizeObserver(updateSizeDisplay).observe(container);
+    </script>
+  
